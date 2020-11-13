@@ -3,7 +3,8 @@ const app = express();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var path = require('path');
-var Usuario = require('./model/usuario')
+var Usuario = require('./model/usuario');
+const { Console } = require('console');
 
 app.use(cookieParser());
 
@@ -39,6 +40,17 @@ app.post('/add', function(req,res){
         }
     })
 });
+
+app.get('/del/:id',function(req,res){
+    Usuario.findByIdAndDelete(req.params.id,function(err){
+        if(err){
+            console.log(err)
+        }else {
+            res.redirect('/')
+        }
+    })
+
+})
 
 app.listen(3000,function(){
     console.log("Conexão inicializada")
