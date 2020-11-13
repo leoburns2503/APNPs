@@ -5,7 +5,7 @@ app.get('/', function(req,res){
     res.send("Olá Leonardo!!")
 })
 
-app.get('/mensagem', function(req,res){
+app.get('/msg', function(req,res){
     res.send("Essa mensagem é automatica")
 })
 
