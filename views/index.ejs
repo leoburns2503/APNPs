@@ -3,10 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página iinicl</title>
+    <title>Usuários</title>
+    <style>
+        table,td,th {
+            border: 2px solid black;
+        }
+        th {
+            font-weight: bolder;
+        }
+        td,th {
+            padding: 7px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Página inicil</h1>
+    <h1>Lista de usuários</h1>
     <p>Seja bem vindo a minha págia inicial</p>
+    <table >
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Foto</th>
+            <th>Apagar</th>
+        </tr>
+        <%for(usuario of Usuarios){ %>
+        
+        <tr>
+            <td><%=usuario._id%></td>
+            <td><%=usuario.nome%></td>
+            <td><%=usuario.email%></td>
+            <td><%=usuario.foto%></td>
+            <td><a href="/del">Apagar</a></td>
+        </tr>
+        <% } %>
+    </table>
 </body>
-</html>
+</html> 

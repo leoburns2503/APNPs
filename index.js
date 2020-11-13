@@ -3,6 +3,7 @@ const app = express();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var path = require('path');
+var Usuario = require('./model/usuario')
 
 app.use(cookieParser());
 
@@ -14,17 +15,30 @@ app.set("view engine", "ejs")
 app.use(express.static(path.join(__dirname,"public")))
 
 app.get('/', function(req,res){
-    res.render('index.ejs', {})
+    Usuario.find({}).exec(function(err,docs){
+        res.render('index.ejs', {Usuarios:docs})
+    })
 })
 
-app.get('/usuarios', function(req,res){
-    res.render('usuarios.ejs', { usuarios:[
-        {nome:'Leonardo',email:'leonardo.bfmc@gmail.com'},
-        {nome:'Ana',email:'Ana@gmail.com'},
-        {nome:'Raquel',email:'Raquel@gmail.com'},
-        {nome:'Maria',email:'Maria@gmail.com'},
-    ]})
+app.get('/add',function(req,res){
+    res.render('adiciona.ejs')
 })
+
+app.post('/add', function(req,res){
+    var usuario = new Usuario({
+        nome: req.body.txtNome,
+        email: req.body.txtEmail,
+        senha: req.body.txtSenha,
+        foto: req.body.txtFoto,
+    })
+    usuario.save(function(err){
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect('/');
+        }
+    })
+});
 
 app.listen(3000,function(){
     console.log("Conexão inicializada")
